@@ -87,8 +87,8 @@ export default function ContactenPage() {
                     </Link>
                     {c.role && <p className="text-slate-400 text-xs">{c.role}</p>}
                   </td>
-                  <td className="px-4 py-3 text-slate-600">{(c as any).companies?.name ?? 'â€"'}</td>
-                  <td className="px-4 py-3 text-slate-600">{c.email ?? 'â€"'}</td>
+                  <td className="px-4 py-3 text-slate-600">{(c as any).companies?.name ?? '—'}</td>
+                  <td className="px-4 py-3 text-slate-600">{c.email ?? '—'}</td>
                   <td className="px-4 py-3 text-slate-600">{c.phone ?? '—'}</td>
                   <td className="px-4 py-3">
                     {(c as any).imported_by

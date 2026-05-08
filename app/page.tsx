@@ -60,7 +60,7 @@ export default async function Dashboard() {
                 </li>
               ))}
             </ul>
-            <Link href="/taken" className="mt-3 inline-block text-xs text-[#0082f3] hover:underline">Alle taken â†'</Link>
+            <Link href="/taken" className="mt-3 inline-block text-xs text-[#0082f3] hover:underline">Alle taken →</Link>
           </div>
 
           <div className="bg-white rounded-xl border border-slate-200 p-5">

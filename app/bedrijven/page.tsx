@@ -91,11 +91,11 @@ export default function BedrijvenPage() {
                       c.type === 'Prospect' ? 'bg-[#b9d5fc] text-[#182f7c]' :
                       c.type === 'Partner' ? 'bg-purple-100 text-purple-700' :
                       'bg-slate-100 text-slate-600'
-                    }`}>{c.type ?? 'â€"'}</span>
+                    }`}>{c.type ?? '—'}</span>
                   </td>
-                  <td className="px-4 py-3 text-slate-600">{c.sector ?? 'â€"'}</td>
+                  <td className="px-4 py-3 text-slate-600">{c.sector ?? '—'}</td>
                   <td className="px-4 py-3">
-                    {c.website ? <a href={c.website} target="_blank" rel="noreferrer" className="text-[#0082f3] hover:underline">{c.website}</a> : 'â€"'}
+                    {c.website ? <a href={c.website} target="_blank" rel="noreferrer" className="text-[#0082f3] hover:underline">{c.website}</a> : '—'}
                   </td>
                 </tr>
               ))}

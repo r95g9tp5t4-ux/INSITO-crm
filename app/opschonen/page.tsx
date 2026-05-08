@@ -144,7 +144,7 @@ export default function OpschonenPage() {
 
         {deletedCount > 0 && (
           <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center mb-6">
-            <p className="text-xl font-bold text-green-700 mb-1">âœ" {deletedCount} dubbele contacten verwijderd</p>
+            <p className="text-xl font-bold text-green-700 mb-1">✓ {deletedCount} dubbele contacten verwijderd</p>
             <button onClick={() => { setScanned(false); setDeletedCount(0) }} className="mt-4 text-sm text-[#0082f3] hover:underline">Opnieuw scannen</button>
           </div>
         )}
@@ -175,7 +175,7 @@ export default function OpschonenPage() {
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-slate-800 text-sm">{c.first_name} {c.last_name}</p>
                         <p className="text-xs text-slate-400">
-                          {[(c as any).companies?.name, c.email, c.phone].filter(Boolean).join(' Â· ')}
+                          {[(c as any).companies?.name, c.email, c.phone].filter(Boolean).join(' · ')}
                         </p>
                       </div>
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${group.keepId === c.id ? 'bg-[#b9d5fc] text-[#182f7c]' : 'bg-red-100 text-red-600'}`}>
