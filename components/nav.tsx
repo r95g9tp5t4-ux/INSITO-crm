@@ -7,6 +7,7 @@ const links = [
   { href: '/contacten', label: 'Contacten' },
   { href: '/bedrijven', label: 'Bedrijven' },
   { href: '/taken', label: 'Taken' },
+  { href: '/importeer', label: 'Importeren' },
 ]
 
 export default function Nav() {
