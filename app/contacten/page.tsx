@@ -87,15 +87,15 @@ export default function ContactenPage() {
                     </Link>
                     {c.role && <p className="text-slate-400 text-xs">{c.role}</p>}
                   </td>
-                  <td className="px-4 py-3 text-slate-600">{(c as any).companies?.name ?? 'â€”'}</td>
-                  <td className="px-4 py-3 text-slate-600">{c.email ?? 'â€”'}</td>
-                  <td className=”px-4 py-3 text-slate-600”>{c.phone ?? '—'}</td>
-                  <td className=”px-4 py-3”>
+                  <td className="px-4 py-3 text-slate-600">{(c as any).companies?.name ?? 'â€"'}</td>
+                  <td className="px-4 py-3 text-slate-600">{c.email ?? 'â€"'}</td>
+                  <td className="px-4 py-3 text-slate-600">{c.phone ?? '—'}</td>
+                  <td className="px-4 py-3">
                     {(c as any).imported_by
-                      ? <span className=”text-xs px-2 py-0.5 rounded-full bg-[#b9d5fc] text-[#182f7c] font-medium”>{(c as any).imported_by}</span>
-                      : <span className=”text-xs text-slate-300”>—</span>}
+                      ? <span className="text-xs px-2 py-0.5 rounded-full bg-[#b9d5fc] text-[#182f7c] font-medium">{(c as any).imported_by}</span>
+                      : <span className="text-xs text-slate-300">—</span>}
                   </td>
-                  <td className=”px-4 py-3”>
+                  <td className="px-4 py-3">
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${c.status === 'Actief' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'}`}>{c.status}</span>
                   </td>
                 </tr>

@@ -182,7 +182,7 @@ export default function ImporteerPage() {
         <h1 className="text-2xl font-bold text-slate-900 mb-2">Contacten importeren</h1>
         <p className="text-sm text-slate-500 mb-6">Importeer contacten uit je telefoon waar &quot;payroll&quot; in de bedrijfsnaam staat.</p>
 
-        {step === ‘upload’ && (
+        {step === 'upload' && (
           <div className="bg-white border border-slate-200 rounded-xl p-6">
             <div className="grid grid-cols-2 gap-4 mb-6">
               <div>
@@ -212,7 +212,7 @@ export default function ImporteerPage() {
                 iPhone: iCloud.com → Contacten → Selecteer alles → Exporteer vCard<br />
                 Android: Contacten-app → Menu → Exporteren → .vcf
               </p>
-              <label className={`cursor-pointer text-white px-6 py-3 rounded-lg transition-colors text-sm font-medium ${!importedBy.trim() ? ‘bg-slate-300 cursor-not-allowed’ : ‘bg-[#0082f3] hover:bg-[#0050bd]’}`}>
+              <label className={`cursor-pointer text-white px-6 py-3 rounded-lg transition-colors text-sm font-medium ${!importedBy.trim() ? 'bg-slate-300 cursor-not-allowed' : 'bg-[#0082f3] hover:bg-[#0050bd]'}`}>
                 Kies .vcf bestand
                 <input type="file" accept=".vcf" onChange={handleFile} disabled={!importedBy.trim()} className="hidden" />
               </label>
@@ -308,10 +308,10 @@ export default function ImporteerPage() {
 
         {step === 'done' && (
           <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
-            <p className="text-2xl font-bold text-green-700 mb-1">âœ“ {importedCount} contacten geÃ¯mporteerd</p>
+            <p className="text-2xl font-bold text-green-700 mb-1">âœ" {importedCount} contacten geÃ¯mporteerd</p>
             {skippedCount > 0 && <p className="text-amber-600 text-sm mb-4">{skippedCount} contacten overgeslagen</p>}
             <a href="/contacten" className="bg-[#0082f3] text-white px-6 py-2.5 rounded-lg hover:bg-[#0050bd] text-sm font-medium">
-              Bekijk contacten â†’
+              Bekijk contacten â†'
             </a>
           </div>
         )}
