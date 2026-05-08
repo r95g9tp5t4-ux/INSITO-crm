@@ -3,10 +3,11 @@ import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
 
 export default async function Dashboard() {
-  const [{ data: tasks }, { data: interactions }, { data: contacts }] = await Promise.all([
+  const [{ data: tasks }, { data: interactions }, { count: contactCount }, { count: companyCount }] = await Promise.all([
     supabase.from('tasks').select('*, contacts(first_name, last_name)').eq('status', 'Open').order('due_date', { ascending: true }).limit(10),
     supabase.from('interactions').select('*, contacts(first_name, last_name)').order('date', { ascending: false }).limit(8),
-    supabase.from('contacts').select('id'),
+    supabase.from('contacts').select('*', { count: 'exact', head: true }),
+    supabase.from('companies').select('*', { count: 'exact', head: true }),
   ])
 
   const overdue = tasks?.filter(t => t.due_date && new Date(t.due_date) < new Date()) ?? []
@@ -18,10 +19,14 @@ export default async function Dashboard() {
       <main className="flex-1 p-6 max-w-6xl mx-auto w-full">
         <h1 className="text-2xl font-bold text-slate-900 mb-6">Dashboard</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-xl border border-slate-200 p-5">
             <p className="text-sm text-slate-500 mb-1">Contacten</p>
-            <p className="text-3xl font-bold text-blue-700">{contacts?.length ?? 0}</p>
+            <p className="text-3xl font-bold text-blue-700">{contactCount ?? 0}</p>
+          </div>
+          <div className="bg-white rounded-xl border border-slate-200 p-5">
+            <p className="text-sm text-slate-500 mb-1">Bedrijven</p>
+            <p className="text-3xl font-bold text-blue-700">{companyCount ?? 0}</p>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 p-5">
             <p className="text-sm text-slate-500 mb-1">Open taken</p>
