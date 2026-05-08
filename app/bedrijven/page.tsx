@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 import Nav from '@/components/nav'
 import { supabase, Company } from '@/lib/supabase'
 import Link from 'next/link'
