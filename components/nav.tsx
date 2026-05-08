@@ -8,6 +8,7 @@ const links = [
   { href: '/bedrijven', label: 'Bedrijven' },
   { href: '/taken', label: 'Taken' },
   { href: '/importeer', label: 'Importeren' },
+  { href: '/opschonen', label: 'Opschonen' },
 ]
 
 export default function Nav() {
