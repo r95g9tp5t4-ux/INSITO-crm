@@ -10,7 +10,7 @@ type Contact = {
   email: string | null
   phone: string | null
   company_id: string | null
-  companies?: { name: string }
+  companies?: { name: string } | { name: string }[]
 }
 
 type DuplicateGroup = {
