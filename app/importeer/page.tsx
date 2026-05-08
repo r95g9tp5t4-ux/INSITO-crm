@@ -21,6 +21,16 @@ function normalizePhone(phone: string | null) {
   return phone.replace(/[\s\-().+]/g, '').replace(/^00/, '').replace(/^0/, '31')
 }
 
+function cleanCompanyName(org: string | null): string | null {
+  if (!org) return null
+  // Remove "payroll" and surrounding separators (case-insensitive)
+  const cleaned = org
+    .replace(/\bpayroll\b[\s\-|:.–]*/gi, '')
+    .replace(/[\s\-|:.–]*\bpayroll\b/gi, '')
+    .trim()
+  return cleaned || null
+}
+
 function parseVcf(text: string): ParsedContact[] {
   const contacts: ParsedContact[] = []
   const cards = text.split(/BEGIN:VCARD/i).filter(c => c.trim())
@@ -110,15 +120,44 @@ export default function ImporteerPage() {
     setImporting(true)
     let count = 0
     let skipped = 0
+
+    // Load existing companies for matching
+    const { data: existingCompanies } = await supabase.from('companies').select('id, name').limit(500)
+    const companyMap = new Map<string, string>()
+    existingCompanies?.forEach(c => companyMap.set(c.name.toLowerCase().trim(), c.id))
+
     for (const c of contacts) {
       if (!c.selected) { skipped++; continue }
       try {
+        // Clean company name: strip "payroll" tag
+        const cleanedCompany = cleanCompanyName(c.company)
+        let companyId: string | null = null
+
+        if (cleanedCompany) {
+          const key = cleanedCompany.toLowerCase().trim()
+          if (companyMap.has(key)) {
+            // Existing company found
+            companyId = companyMap.get(key)!
+          } else {
+            // Create new company
+            const { data: newCompany } = await supabase
+              .from('companies')
+              .insert([{ name: cleanedCompany, type: 'Klant' }])
+              .select('id')
+              .single()
+            if (newCompany) {
+              companyId = newCompany.id
+              companyMap.set(key, newCompany.id)
+            }
+          }
+        }
+
         await supabase.from('contacts').insert([{
           first_name: c.first_name,
           last_name: c.last_name,
           email: c.email,
           phone: c.phone,
-          notes: c.company ? `Bedrijf telefoon: ${c.company}` : null,
+          company_id: companyId,
           status: 'Actief',
           imported_by: importedBy.trim() || null
         }])
@@ -208,6 +247,7 @@ export default function ImporteerPage() {
                     <tr>
                       <th className="px-4 py-3 w-8"></th>
                       <th className="text-left px-4 py-3 font-medium text-slate-600">Naam</th>
+                      <th className="text-left px-4 py-3 font-medium text-slate-600">Bedrijf (na opschonen)</th>
                       <th className="text-left px-4 py-3 font-medium text-slate-600">E-mail / Tel</th>
                       <th className="text-left px-4 py-3 font-medium text-slate-600">Status</th>
                     </tr>
@@ -226,7 +266,11 @@ export default function ImporteerPage() {
                         </td>
                         <td className="px-4 py-2.5">
                           <p className="font-medium text-slate-800">{c.first_name} {c.last_name}</p>
-                          {c.company && <p className="text-xs text-slate-400">{c.company}</p>}
+                        </td>
+                        <td className="px-4 py-2.5">
+                          {cleanCompanyName(c.company)
+                            ? <span className="text-xs px-2 py-0.5 rounded-full bg-[#b9d5fc] text-[#182f7c] font-medium">{cleanCompanyName(c.company)}</span>
+                            : <span className="text-xs text-slate-300">—</span>}
                         </td>
                         <td className="px-4 py-2.5 text-slate-500 text-xs">
                           {c.email && <p>{c.email}</p>}
