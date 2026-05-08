@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import Nav from '@/components/nav'
 import { supabase } from '@/lib/supabase'
 import { useState } from 'react'
@@ -129,7 +129,7 @@ export default function OpschonenPage() {
           <button
             onClick={scan}
             disabled={scanning}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm font-medium"
+            className="bg-[#0082f3] text-white px-6 py-3 rounded-lg hover:bg-[#0050bd] disabled:opacity-50 text-sm font-medium"
           >
             {scanning ? 'Bezig met scannen...' : 'Scan op dubbelen'}
           </button>
@@ -144,8 +144,8 @@ export default function OpschonenPage() {
 
         {deletedCount > 0 && (
           <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center mb-6">
-            <p className="text-xl font-bold text-green-700 mb-1">✓ {deletedCount} dubbele contacten verwijderd</p>
-            <button onClick={() => { setScanned(false); setDeletedCount(0) }} className="mt-4 text-sm text-blue-600 hover:underline">Opnieuw scannen</button>
+            <p className="text-xl font-bold text-green-700 mb-1">âœ“ {deletedCount} dubbele contacten verwijderd</p>
+            <button onClick={() => { setScanned(false); setDeletedCount(0) }} className="mt-4 text-sm text-[#0082f3] hover:underline">Opnieuw scannen</button>
           </div>
         )}
 
@@ -167,18 +167,18 @@ export default function OpschonenPage() {
                     <div
                       key={c.id}
                       onClick={() => setKeep(gi, c.id)}
-                      className={`flex items-center gap-4 px-4 py-3 border-b border-slate-100 last:border-0 cursor-pointer transition-colors ${group.keepId === c.id ? 'bg-blue-50' : 'hover:bg-slate-50'}`}
+                      className={`flex items-center gap-4 px-4 py-3 border-b border-slate-100 last:border-0 cursor-pointer transition-colors ${group.keepId === c.id ? 'bg-[#f0f7ff]' : 'hover:bg-slate-50'}`}
                     >
-                      <div className={`w-4 h-4 rounded-full border-2 shrink-0 flex items-center justify-center ${group.keepId === c.id ? 'border-blue-600 bg-blue-600' : 'border-slate-300'}`}>
+                      <div className={`w-4 h-4 rounded-full border-2 shrink-0 flex items-center justify-center ${group.keepId === c.id ? 'border-blue-600 bg-[#0082f3]' : 'border-slate-300'}`}>
                         {group.keepId === c.id && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-slate-800 text-sm">{c.first_name} {c.last_name}</p>
                         <p className="text-xs text-slate-400">
-                          {[(c as any).companies?.name, c.email, c.phone].filter(Boolean).join(' · ')}
+                          {[(c as any).companies?.name, c.email, c.phone].filter(Boolean).join(' Â· ')}
                         </p>
                       </div>
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${group.keepId === c.id ? 'bg-blue-100 text-blue-700' : 'bg-red-100 text-red-600'}`}>
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${group.keepId === c.id ? 'bg-[#b9d5fc] text-[#182f7c]' : 'bg-red-100 text-red-600'}`}>
                         {group.keepId === c.id ? 'Behouden' : 'Verwijderen'}
                       </span>
                     </div>
@@ -200,3 +200,4 @@ export default function OpschonenPage() {
     </div>
   )
 }
+

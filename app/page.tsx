@@ -1,4 +1,4 @@
-import Nav from '@/components/nav'
+﻿import Nav from '@/components/nav'
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
 
@@ -22,15 +22,15 @@ export default async function Dashboard() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-xl border border-slate-200 p-5">
             <p className="text-sm text-slate-500 mb-1">Contacten</p>
-            <p className="text-3xl font-bold text-blue-700">{contactCount ?? 0}</p>
+            <p className="text-3xl font-bold text-[#182f7c]">{contactCount ?? 0}</p>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 p-5">
             <p className="text-sm text-slate-500 mb-1">Bedrijven</p>
-            <p className="text-3xl font-bold text-blue-700">{companyCount ?? 0}</p>
+            <p className="text-3xl font-bold text-[#182f7c]">{companyCount ?? 0}</p>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 p-5">
             <p className="text-sm text-slate-500 mb-1">Open taken</p>
-            <p className="text-3xl font-bold text-blue-700">{tasks?.length ?? 0}</p>
+            <p className="text-3xl font-bold text-[#182f7c]">{tasks?.length ?? 0}</p>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 p-5">
             <p className="text-sm text-slate-500 mb-1">Verlopen taken</p>
@@ -54,13 +54,13 @@ export default async function Dashboard() {
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                       t.priority === 'Hoog' ? 'bg-red-100 text-red-700' :
                       t.priority === 'Laag' ? 'bg-slate-100 text-slate-500' :
-                      'bg-blue-100 text-blue-700'
+                      'bg-[#b9d5fc] text-[#182f7c]'
                     }`}>{t.priority}</span>
                   </div>
                 </li>
               ))}
             </ul>
-            <Link href="/taken" className="mt-3 inline-block text-xs text-blue-600 hover:underline">Alle taken →</Link>
+            <Link href="/taken" className="mt-3 inline-block text-xs text-[#0082f3] hover:underline">Alle taken â†’</Link>
           </div>
 
           <div className="bg-white rounded-xl border border-slate-200 p-5">
@@ -71,7 +71,7 @@ export default async function Dashboard() {
                 <li key={i.id} className="text-sm py-2 border-b border-slate-100 last:border-0">
                   <div className="flex items-center gap-2 mb-0.5">
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                      i.type === 'Email' ? 'bg-blue-100 text-blue-700' :
+                      i.type === 'Email' ? 'bg-[#b9d5fc] text-[#182f7c]' :
                       i.type === 'Fyxer' ? 'bg-purple-100 text-purple-700' :
                       i.type === 'Gesprek' ? 'bg-green-100 text-green-700' :
                       'bg-slate-100 text-slate-600'
@@ -89,3 +89,4 @@ export default async function Dashboard() {
     </div>
   )
 }
+

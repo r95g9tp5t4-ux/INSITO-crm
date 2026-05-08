@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import Nav from '@/components/nav'
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
@@ -59,17 +59,17 @@ export default function TakenPage() {
           )}
           {filtered.filter(t => !overdue.includes(t)).map(t => (
             <div key={t.id} className={`bg-white border rounded-xl px-4 py-3 flex items-center gap-3 ${t.status === 'Afgerond' ? 'border-slate-100 opacity-60' : 'border-slate-200'}`}>
-              <input type="checkbox" checked={t.status === 'Afgerond'} onChange={() => toggle(t.id, t.status)} className="h-4 w-4 accent-blue-600 cursor-pointer shrink-0" />
+              <input type="checkbox" checked={t.status === 'Afgerond'} onChange={() => toggle(t.id, t.status)} className="h-4 w-4 accent-[#0082f3] cursor-pointer shrink-0" />
               <div className="flex-1 min-w-0">
                 <p className={`text-sm font-medium ${t.status === 'Afgerond' ? 'line-through text-slate-400' : 'text-slate-800'}`}>{t.title}</p>
                 <div className="flex items-center gap-2 flex-wrap">
-                  {t.contacts && <Link href={`/contacten/${t.contacts.id}`} className="text-xs text-blue-600 hover:underline">{t.contacts.first_name} {t.contacts.last_name}</Link>}
+                  {t.contacts && <Link href={`/contacten/${t.contacts.id}`} className="text-xs text-[#0082f3] hover:underline">{t.contacts.first_name} {t.contacts.last_name}</Link>}
                   {t.companies && <Link href={`/bedrijven/${t.companies.id}`} className="text-xs text-slate-400 hover:underline">{t.companies.name}</Link>}
                 </div>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 {t.due_date && <span className="text-xs text-slate-400">{new Date(t.due_date).toLocaleDateString('nl-NL')}</span>}
-                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${t.priority === 'Hoog' ? 'bg-red-100 text-red-700' : t.priority === 'Laag' ? 'bg-slate-100 text-slate-500' : 'bg-blue-100 text-blue-700'}`}>{t.priority}</span>
+                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${t.priority === 'Hoog' ? 'bg-red-100 text-red-700' : t.priority === 'Laag' ? 'bg-slate-100 text-slate-500' : 'bg-[#b9d5fc] text-[#182f7c]'}`}>{t.priority}</span>
               </div>
             </div>
           ))}
@@ -78,3 +78,4 @@ export default function TakenPage() {
     </div>
   )
 }
+

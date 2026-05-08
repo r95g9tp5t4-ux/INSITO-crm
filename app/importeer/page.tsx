@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import Nav from '@/components/nav'
 import { supabase } from '@/lib/supabase'
 import { useState } from 'react'
@@ -141,10 +141,10 @@ export default function ImporteerPage() {
           <div className="bg-white border-2 border-dashed border-slate-300 rounded-xl p-10 text-center">
             <p className="text-slate-600 mb-2 font-medium">Exporteer je contacten als .vcf bestand</p>
             <p className="text-sm text-slate-400 mb-6">
-              iPhone: iCloud.com → Contacten → Selecteer alles → Exporteer vCard<br />
-              Android: Contacten-app → Menu → Exporteren → .vcf
+              iPhone: iCloud.com â†’ Contacten â†’ Selecteer alles â†’ Exporteer vCard<br />
+              Android: Contacten-app â†’ Menu â†’ Exporteren â†’ .vcf
             </p>
-            <label className="cursor-pointer bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+            <label className="cursor-pointer bg-[#0082f3] text-white px-6 py-3 rounded-lg hover:bg-[#0050bd] transition-colors text-sm font-medium">
               Kies .vcf bestand
               <input type="file" accept=".vcf" onChange={handleFile} className="hidden" />
             </label>
@@ -190,7 +190,7 @@ export default function ImporteerPage() {
                             checked={c.selected ?? false}
                             disabled={c.matchStatus === 'duplicate'}
                             onChange={() => toggleContact(i)}
-                            className="h-4 w-4 accent-blue-600 cursor-pointer disabled:cursor-not-allowed"
+                            className="h-4 w-4 accent-[#0082f3] cursor-pointer disabled:cursor-not-allowed"
                           />
                         </td>
                         <td className="px-4 py-2.5">
@@ -219,7 +219,7 @@ export default function ImporteerPage() {
 
             <div className="flex gap-3 items-center">
               {selectedCount > 0 && (
-                <button onClick={importContacts} disabled={importing} className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm font-medium">
+                <button onClick={importContacts} disabled={importing} className="bg-[#0082f3] text-white px-6 py-2.5 rounded-lg hover:bg-[#0050bd] disabled:opacity-50 text-sm font-medium">
                   {importing ? 'Bezig...' : `Importeer ${selectedCount} contacten`}
                 </button>
               )}
@@ -233,10 +233,10 @@ export default function ImporteerPage() {
 
         {step === 'done' && (
           <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
-            <p className="text-2xl font-bold text-green-700 mb-1">✓ {importedCount} contacten geïmporteerd</p>
+            <p className="text-2xl font-bold text-green-700 mb-1">âœ“ {importedCount} contacten geÃ¯mporteerd</p>
             {skippedCount > 0 && <p className="text-amber-600 text-sm mb-4">{skippedCount} contacten overgeslagen</p>}
-            <a href="/contacten" className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 text-sm font-medium">
-              Bekijk contacten →
+            <a href="/contacten" className="bg-[#0082f3] text-white px-6 py-2.5 rounded-lg hover:bg-[#0050bd] text-sm font-medium">
+              Bekijk contacten â†’
             </a>
           </div>
         )}
@@ -244,3 +244,4 @@ export default function ImporteerPage() {
     </div>
   )
 }
+
