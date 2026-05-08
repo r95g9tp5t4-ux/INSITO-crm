@@ -59,6 +59,8 @@ export default function ImporteerPage() {
   const [importing, setImporting] = useState(false)
   const [importedCount, setImportedCount] = useState(0)
   const [skippedCount, setSkippedCount] = useState(0)
+  const [importedBy, setImportedBy] = useState('')
+  const [filterKeyword, setFilterKeyword] = useState('payroll')
 
   async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
@@ -67,7 +69,10 @@ export default function ImporteerPage() {
     reader.onload = async (ev) => {
       const text = ev.target?.result as string
       const all = parseVcf(text)
-      const payroll = all.filter(c => c.company?.toLowerCase().includes('payroll'))
+      const keyword = filterKeyword.trim().toLowerCase()
+      const payroll = keyword
+        ? all.filter(c => c.company?.toLowerCase().includes(keyword))
+        : all
 
       const { data: existing } = await supabase.from('contacts').select('first_name, last_name, email, phone').limit(1000)
 
@@ -114,7 +119,8 @@ export default function ImporteerPage() {
           email: c.email,
           phone: c.phone,
           notes: c.company ? `Bedrijf telefoon: ${c.company}` : null,
-          status: 'Actief'
+          status: 'Actief',
+          imported_by: importedBy.trim() || null
         }])
         count++
       } catch {}
@@ -137,17 +143,42 @@ export default function ImporteerPage() {
         <h1 className="text-2xl font-bold text-slate-900 mb-2">Contacten importeren</h1>
         <p className="text-sm text-slate-500 mb-6">Importeer contacten uit je telefoon waar &quot;payroll&quot; in de bedrijfsnaam staat.</p>
 
-        {step === 'upload' && (
-          <div className="bg-white border-2 border-dashed border-slate-300 rounded-xl p-10 text-center">
-            <p className="text-slate-600 mb-2 font-medium">Exporteer je contacten als .vcf bestand</p>
-            <p className="text-sm text-slate-400 mb-6">
-              iPhone: iCloud.com â†’ Contacten â†’ Selecteer alles â†’ Exporteer vCard<br />
-              Android: Contacten-app â†’ Menu â†’ Exporteren â†’ .vcf
-            </p>
-            <label className="cursor-pointer bg-[#0082f3] text-white px-6 py-3 rounded-lg hover:bg-[#0050bd] transition-colors text-sm font-medium">
-              Kies .vcf bestand
-              <input type="file" accept=".vcf" onChange={handleFile} className="hidden" />
-            </label>
+        {step === ‘upload’ && (
+          <div className="bg-white border border-slate-200 rounded-xl p-6">
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Jouw naam <span className="text-red-500">*</span></label>
+                <input
+                  placeholder="Bijv. Hjalmar"
+                  value={importedBy}
+                  onChange={e => setImportedBy(e.target.value)}
+                  className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0082f3]"
+                />
+                <p className="text-xs text-slate-400 mt-1">Wordt opgeslagen bij elk geïmporteerd contact</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Filter op bedrijfsnaam</label>
+                <input
+                  placeholder="Bijv. payroll (leeg = alles)"
+                  value={filterKeyword}
+                  onChange={e => setFilterKeyword(e.target.value)}
+                  className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0082f3]"
+                />
+                <p className="text-xs text-slate-400 mt-1">Laat leeg om alle contacten te importeren</p>
+              </div>
+            </div>
+            <div className="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center">
+              <p className="text-slate-600 mb-2 font-medium">Exporteer je contacten als .vcf bestand</p>
+              <p className="text-sm text-slate-400 mb-5">
+                iPhone: iCloud.com → Contacten → Selecteer alles → Exporteer vCard<br />
+                Android: Contacten-app → Menu → Exporteren → .vcf
+              </p>
+              <label className={`cursor-pointer text-white px-6 py-3 rounded-lg transition-colors text-sm font-medium ${!importedBy.trim() ? ‘bg-slate-300 cursor-not-allowed’ : ‘bg-[#0082f3] hover:bg-[#0050bd]’}`}>
+                Kies .vcf bestand
+                <input type="file" accept=".vcf" onChange={handleFile} disabled={!importedBy.trim()} className="hidden" />
+              </label>
+              {!importedBy.trim() && <p className="text-xs text-slate-400 mt-3">Vul eerst je naam in</p>}
+            </div>
           </div>
         )}
 
